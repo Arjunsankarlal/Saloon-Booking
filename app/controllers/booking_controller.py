@@ -36,7 +36,7 @@ def check_slot_availability_and_book(saloon_id, service_id, booking_date, bookin
     if len(filtered_bookings) >= saloon.number_of_seats:
         return "Sorry the requested slot is not available"
 
-    filtered_bookings = filtered_bookings.filter(start_time__lte=end_time, end_time__gte=end_time)
+    filtered_bookings = bookings.filter(start_time__lte=end_time, end_time__gte=end_time)
     print(len(filtered_bookings), saloon.number_of_seats)
 
     if len(filtered_bookings) >= saloon.number_of_seats:
@@ -73,7 +73,7 @@ def get_available_slots_for_booking(saloon_id, service_id, booking_date):
         end_time = add_minutes_time(time_slot, service.time_taken)
         # print(st_time, end_time)
         filtered_bookings_a = bookings.filter(start_time__lte=st_time, end_time__gte=st_time)
-        filtered_bookings_b = filtered_bookings_a.filter(start_time__lte=end_time, end_time__gte=end_time)
+        filtered_bookings_b = bookings.filter(start_time__lte=end_time, end_time__gte=end_time)
         # print(len(filtered_bookings), saloon.number_of_seats)
         if len(filtered_bookings_a) < saloon.number_of_seats and len(filtered_bookings_b) < saloon.number_of_seats:
             available_time_slots.append(time_slot)
