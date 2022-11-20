@@ -22,10 +22,10 @@ def get_all_saloons(request):
     return JsonResponse(output_json)
 
 
-def get_all_bookings(request):
+def get_all_bookings(request, saloon_id):
     output_json = {}
     booking_list = []
-    for booking in Booking.objects.all():
+    for booking in Booking.objects.filter(saloon_id=saloon_id):
         booking_list.append(model_to_dict(booking))
     output_json["saloons"] = booking_list
     return JsonResponse(output_json)
